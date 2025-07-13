@@ -1,15 +1,19 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"fmt"
+
+	"github.com/awaisahmedsukhera/sykell-crawler-task/backend/internal/crawler"
 )
 
 func main() {
-	r := gin.Default()
+	// Todo: Remove after development and testing
+	result, err := crawler.CrawlURL("https://example.com")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "pong"})
-	})
-
-	r.Run(":8080") // listen on port 8080
+	fmt.Println("HTMLVersion:", result.HTMLVersion)
+	fmt.Println("PageTitle:", result.PageTitle)
 }
